@@ -1,9 +1,5 @@
-# Minimal Fleet configuration for AI Doc on Raspberry Pi cluster
 defaultNamespace: aidoc-system
-
-# Target specific clusters using labels
 targetCustomizations:
-  - name: raspberry-pi
-    clusterSelector:
-      matchLabels:
-        env: prod
+  - name: aidoc-deployment
+    clusterSelector: {}
+    path: "./fleet"
