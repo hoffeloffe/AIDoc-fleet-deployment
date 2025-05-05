@@ -1,11 +1,10 @@
-# Basic Fleet configuration
+# Simplified Fleet configuration for AIDoc deployment
+# Define the namespace where your application will be deployed
 defaultNamespace: aidoc-system
 
 # Target specific clusters using labels
 targetCustomizations:
-  - name: aidoc-deployment
-    clusterSelector: {}
-    forceSyncGeneration: 1
-    helm:
-      # Use a valid release name pattern
-      releaseName: "aidoc-app"
+  - name: raspberry-pi
+    clusterSelector:
+      matchLabels:
+        env: prod
