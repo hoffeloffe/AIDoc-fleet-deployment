@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: namespace-init
+  namespace: default
+  annotations:
+    # This ensures the job runs before other resources
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-5"
+    helm.sh/hook-delete-policy: hook-succeeded
+spec:
+  template:
+    spec:
+      serviceAccountName: default
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/bash
+        - -c
+        - |
+          # Delete the namespace if it exists with wrong annotations
+          kubectl get namespace aidoc-system && kubectl delete namespace aidoc-system || echo "Namespace doesn't exist yet"
+          
+          # Create the namespace with proper annotations
+          cat <<EOF | kubectl apply -f -
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: aidoc-system
+            labels:
+              app.kubernetes.io/managed-by: Helm
+            annotations:
+              meta.helm.sh/release-name: aidoc-app
+              meta.helm.sh/release-namespace: aidoc-system
+          EOF
+      restartPolicy: Never
+  backoffLimit: 1

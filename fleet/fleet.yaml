@@ -1,10 +1,11 @@
+# Basic Fleet configuration
 defaultNamespace: aidoc-system
-
-# Use kustomize instead of Helm
-kustomize:
-  dir: .
 
 # Target specific clusters using labels
 targetCustomizations:
   - name: aidoc-deployment
     clusterSelector: {}
+    forceSyncGeneration: 1
+    helm:
+      # Use a valid release name pattern
+      releaseName: "aidoc-app"
