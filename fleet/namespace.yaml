@@ -3,7 +3,4 @@ kind: Namespace
 metadata:
   name: aidoc-system
   labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: aidoc-fleet
-    meta.helm.sh/release-namespace: aidoc-system
+    fleet.cattle.io/managed: "true"
