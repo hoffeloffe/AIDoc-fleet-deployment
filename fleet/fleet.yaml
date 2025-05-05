@@ -1,5 +1,12 @@
 defaultNamespace: aidoc-system
+
+# Explicitly define the Helm release name to match the namespace annotation
+helm:
+  releaseName: aidoc-fleet
+  # Use values from the values.yaml file
+  valuesFiles:
+    - values.yaml
+
 targetCustomizations:
   - name: aidoc-deployment
     clusterSelector: {}
-    path: "./fleet"
