@@ -1,0 +1,29 @@
+# Values for AI Doc deployment
+image:
+  repository: hoffeloffe/aidoc
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  host: aidoc.local
+  path: /
+  
+resources:
+  limits:
+    cpu: "1"
+    memory: "512Mi"
+  requests:
+    cpu: "200m"
+    memory: "128Mi"
+
+replicas: 2
+
+# Enable ARM64 support specifically for Raspberry Pi
+nodeSelector:
+  kubernetes.io/arch: arm64
