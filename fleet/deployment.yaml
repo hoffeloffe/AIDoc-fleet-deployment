@@ -24,8 +24,10 @@ spec:
     spec:
       containers:
       - name: aidoc
-        image: hoffeloffe/aidoc:latest
-        imagePullPolicy: Always
+        # Pinned by digest for reproducible, rollback-able deploys (corresponds to
+        # the image previously deployed as :latest). Update via CI when publishing.
+        image: hoffeloffe/aidoc@sha256:7ed9f3d087e3edd2f6f44ec6990ee5e0d97f480b00926b030920cddbb7835055
+        imagePullPolicy: IfNotPresent
         ports:
         - name: http
           containerPort: 3000
